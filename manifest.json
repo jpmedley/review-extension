@@ -7,7 +7,13 @@
     "128": "128.png"
   },
   "browser_action": {
-    "default_title": "TITLE!",
-    "default_popup": "popup.html"
+   "default_title": "TITLE!"
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
   }
 }
