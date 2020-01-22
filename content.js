@@ -1,0 +1,1 @@
+console.log(`extension: ${document.querySelectorAll('a')}`);
