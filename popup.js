@@ -1,7 +1,7 @@
-function hello() {
+function audit() {
  chrome.tabs.executeScript({
-   file: 'alert.js'
+   file: 'audit.js'
  }); 
 }
 
-document.getElementById('clickme').addEventListener('click', hello);
+document.getElementById('audit').addEventListener('click', audit);
