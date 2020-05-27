@@ -7,7 +7,6 @@
     "128": "128.png"
   },
   "browser_action": {
-   "default_title": "TITLE!",
    "default_popup": "popup.html"
   },
   "permissions": [

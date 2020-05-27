@@ -1,13 +1,11 @@
-const tooltip = document.createElement('div');
-
-function setup() {
-  tooltip.style.width = '250px';
-  tooltip.style.height = '250px';
-  tooltip.style.display = 'none';
-  tooltip.style.position = 'fixed';
-  tooltip.style.zIndex = '1000000';
-  tooltip.textContent = 'hi';
-  document.body.appendChild(tooltip);
+function hero() {
+  const image = new Image();
+  image.addEventListener('load', () => {
+    chrome.runtime.sendMessage({
+      hero: image.width
+    });
+  });
+  image.src = document.querySelector('.w-hero').src;
 }
 
 function images() {
@@ -24,13 +22,13 @@ function images() {
       tooltip.style.top = 0;
       tooltip.style.left = 0;
       tooltip.style.display = 'block';
-      console.log({position, tooltip});
+      //console.log({position, tooltip});
     });
   });
 }
 
 function headings() {
-  console.log(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+  //console.log(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
 }
 
 function links() {
@@ -41,7 +39,7 @@ function links() {
   });
 }
 
-setup();
-images();
-headings();
-links();
+//images();
+//headings();
+//links();
+hero();
