@@ -13,5 +13,8 @@
     "activeTab",
     "http://*/",
     "https://*/"
+  ],
+  "web_accessible_resources": [
+    "content.html"
   ]
 }

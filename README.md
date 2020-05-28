@@ -15,3 +15,4 @@
 * Remove `en-US` from MDN links… make it more generic though…
 * Acronyms should be defined before using (this one might be difficult to automate)
 * Chromium, not Chrome
+* Remove `hl=en`
