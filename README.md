@@ -2,6 +2,9 @@
 
 ## TODO
 
+* Check that title matches URL
+* Check for images above 250KB
+* If no tags are present, point them to `postTags.json`
 * 404 links
 * Correct order of H
 * Quotes around link text

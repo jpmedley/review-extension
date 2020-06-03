@@ -19,7 +19,9 @@
     "persistent": false
   },
   "web_accessible_resources": [
-    "content.css",
-    "content.html"
-  ]
+    "ui.css",
+    "ui.html",
+    "ui.js"
+  ],
+  "content_security_policy": "object-src 'self'; script-src 'self' https://*.netlify.app/*;"
 }
