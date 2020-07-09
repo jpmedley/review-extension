@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="ui.css">
   </head>
   <body>
-    <h1>this is prob more efficient</h1>
-    <p class="hero">Hero: Checking…</p>
-    <button class="close">Close</button>
+    <h1>web.dev content review extension</h1>
+    <button id="copy">Copy tasks to clipboard</button>
+    <button id="close">Close</button>
+    <section id="hero">
+      <h2>Hero image dimensions</h2>
+      <p>
+        Status: <span class="status">In progress</span>
+      </p>
+      <p class="pass">
+        pass
+      </p>
+      <p class="fail">
+        The hero image should be <code>3200px</code> wide and <code>920px</code> tall.
+      </p>
+    </section>
+    <section id="tags">
+      <h2>Tags</h2>
+      <p>
+        Status: <span class="status">In progress</span>
+      </p>
+      <p class="pass">
+        pass
+      </p>
+      <p class="fail">
+        Add <a href="https://web.dev/handbook/tags" target="_blank">tags</a> to the post.
+      </p>
+    </section>
     <script src="ui.js"></script>
   </body>
 </html>

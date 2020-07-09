@@ -5,3 +5,12 @@ button {
   background-color: indigo;
   color: lavender;
 }
+.fail {
+  display: none;
+}
+.pass {
+  display: none;
+}
+.visible {
+  display: block;
+}
