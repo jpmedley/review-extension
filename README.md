@@ -1,7 +1,20 @@
-# webdevextension
+# review-extension
+
+## Get started
+
+1. Clone this repository:
+
+       git clone git@github.com:kaycebasques/review-extension.git
+
+1. Go to `chrome://extensions`.
+1. Click **Load unpacked**.
+1. Select the directory where you cloned this repository.
+
+<!--
 
 ## TODO
 
+* Replace GIFs with videos (use the LIghthouse audit)
 * Videos have playsinline attribute (and all the other attributes)
 * YouTube videos are embedded with component
 * Check that title matches URL
@@ -33,3 +46,5 @@ $$('a').forEach(a => {
 * Nitpick: Subhead should end with period.
 * Glitch should use `/embed/` not `/edit/`
 * (Maybe more appropriate for GitHub Bot) Contributor photos are correct dimensions
+
+-->

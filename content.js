@@ -9,17 +9,17 @@
     function hero() {
       const hero = document.querySelector('.w-hero');
       if (!hero) {
-        postMessage({id: 'hero', pass: false, code: 'no-hero'});
+        postMessage({id: 'hero', pass: false, code: 'no-hero',
+            task: 'Add a hero image: https://web.dev/handbook/markup-media/#hero'});
         return;
       }
-      // TODO(kayce): Create one image and share it across all audits that
-      // need an image reference?
       const image = new Image();
       image.addEventListener('load', () => {
         if ((image.width === 3200) && (image.height === 920)) {
           postMessage({id: 'hero', pass: true});
         } else {
-          postMessage({id: 'hero', pass: false, code: 'incorrect-dimensions'});
+          postMessage({id: 'hero', pass: false, code: 'incorrect-dimensions',
+              task: 'Resize the hero image: https://web.dev/handbook/markup-media/#hero'});
         }
       });
       image.src = document.querySelector('.w-hero').src;
@@ -27,12 +27,51 @@
     function headings() {
 
     }
+    function images() {
+      // Convert NodeList to Array and filter.
+      [].slice.call(document.querySelectorAll('.w-post-content img')).forEach(image => {
+        const node = new Image();
+        node.addEventListener('load', () => {
+          console.log(image.src, node.width);
+        });
+        node.src = image.src;
+      });
+    }
+    // Not used yet.
+    function isBlog() {
+      return document.querySelector('.w-breadcrumbs__link[href="/blog"]') ? true : false;
+    }
+    // TODO(kaycebasques): Getting CORS errors. Need to use the Extension to create new tabs
+    // and check that the pages are valid that way.
+    // Extension background script might be the way to go.
+    // https://stackoverflow.com/a/5342473/1669860
+    function links() {
+      let links = [].slice.call(document.querySelectorAll('.w-post-content a'));
+      // TODO(kayce): Refactor all of the filtering logic below to do less looping.
+      // Filter out known links that the site's template injects into each page.
+      [
+        'w-breadcrumbs__link',
+        'w-author__name-link',
+        'w-author__link',
+      ].forEach(siteLink => {
+        links = links.filter(link => !link.classList.contains(siteLink));
+      });
+      links = links.filter(link => !RegExp('/authors/').test(link.href));
+      links = links.filter(link => !RegExp('Improve article').test(link.textContent));
+      links = links.map(link => link.href);
+      // TODO(kaycebasques): Add a callback?
+      chrome.runtime.sendMessage(JSON.stringify({id: 'links', links}));
+    }
     function tags() {
-      const data = {id: 'tags', pass: document.querySelector('.w-chip') ? true : false};
-      postMessage(data);
+      postMessage({
+        id: 'tags', 
+        pass: document.querySelector('.w-chip') ? true : false,
+        task: 'Add relevant tags to the post: https://web.dev/handbook/tags',
+      });
     }
     function psi() {
-      // PSI API is returing HTTP 400 (invalid request)
+      // TODO(kaycebasques): Use multiple category=X params
+      // PSI API is returning HTTP 400 (invalid request)
       const url = `url=${encodeURIComponent(window.location)}`;
       const key = 'key=AIzaSyCGRsPbQXhA3JdbYixZlFJRlGVyTUvPVik';
       //const categories =
@@ -41,10 +80,27 @@
       //    .then(response => response.text())
       //    .then(text => console.log(text));
     }
+    function videos() {
+      // https://web.dev/handbook/markup-media/#video-hosted-on-web.dev
+      let data = [];
+      const videos = [].slice.call(document.querySelectorAll('.w-post-content video'));
+      videos.forEach(video => {
+        let details = {
+          id: video.querySelector('source').src,
+          playsinline: video.hasAttribute('playsinline'),
+          parent: video.parentNode.nodeName === 'FIGURE' && video.parentNode.classList.contains('w-figure'),
+        };
+        data.push(details);
+      });
+      console.log(data);
+    }
     hero();
+    images();
+    //links();
     tags();
     //headings();
     //psi();
+    videos();
   }
   function setup() {
     function customize() {
@@ -77,10 +133,10 @@
       extension.parentNode.removeChild(extension);
     }
   }
-  window.addEventListener('message', e => {
+  window.onmessage = e => {
     if (e.data.id === 'close') teardown();
     if (e.data.id === 'ready') audit();
-  });
+  };
   setup();
   //audit();
 })();
