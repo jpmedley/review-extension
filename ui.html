@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>web.dev content review extension</h1>
-    <button id="copy">Copy tasks to clipboard</button>
+    <button id="copy">Copy tasks</button>
     <button id="close">Close</button>
     <section id="hero">
       <h2>Hero image dimensions</h2>
@@ -31,6 +31,19 @@
       <p class="fail">
         Add <a href="https://web.dev/handbook/tags" target="_blank">tags</a> to the post.
       </p>
+    </section>
+    <section id="images">
+      <h2>Images</h2>
+      <p>
+        Status: <span class="status">In progress</span>
+      </p>
+      <p class="pass">
+        All images are <code>1600px</code> or less.
+      </p>
+      <p class="fail">
+        Resize the following images so that their width is no greater than <code>1600px</code>:
+      </p>
+      <ul class="details"></ul>
     </section>
     <script src="ui.js"></script>
   </body>

@@ -1,6 +1,6 @@
 # review-extension
 
-## Get started
+## Setup
 
 1. Clone this repository:
 
@@ -9,6 +9,7 @@
 1. Go to `chrome://extensions`.
 1. Click **Load unpacked**.
 1. Select the directory where you cloned this repository.
+1. (Optional) [Pin the Extension](https://www.chromestory.com/2019/05/pinned-extensions/) for easy access.
 
 <!--
 

@@ -28,11 +28,18 @@
 
     }
     function images() {
-      // Convert NodeList to Array and filter.
       [].slice.call(document.querySelectorAll('.w-post-content img')).forEach(image => {
         const node = new Image();
         node.addEventListener('load', () => {
-          console.log(image.src, node.width);
+          if (node.width >= 1600) {
+            const pathname = new URL(node.src).pathname;
+            const filename = pathname.substring(pathname.lastIndexOf('/') + 1);
+            postMessage({
+              id: 'images',
+              pass: false,
+              details: filename,
+            });
+          }
         });
         node.src = image.src;
       });
@@ -136,6 +143,10 @@
   window.onmessage = e => {
     if (e.data.id === 'close') teardown();
     if (e.data.id === 'ready') audit();
+    if (e.data.id === 'copy') {
+      // https://github.com/w3c/webappsec-feature-policy/issues/322#issuecomment-618009921
+      navigator.clipboard.writeText(e.data.markdown);
+    }
   };
   setup();
   //audit();
