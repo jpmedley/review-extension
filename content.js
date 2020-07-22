@@ -94,8 +94,9 @@
     // TODO(kaycebasques): Move this because it's not a content audit.
     // It's here right now because we don't want to run it until the Extension UI is ready.
     function version() {
-      const url = 'https://raw.githubusercontent.com/kaycebasques/review-extension/master/manifest.json';
+      const url = `https://raw.githubusercontent.com/kaycebasques/review-extension/master/manifest.json?timestamp=${Date.now()}`;
       fetch(url).then(response => response.json()).then(json => {
+        console.log('network', json.version, 'manifest', chrome.runtime.getManifest().version);
         if (json.version !== chrome.runtime.getManifest().version) {
           postMessage({id: 'version', pass: false, code: 'new-version-available'});
         } else {
