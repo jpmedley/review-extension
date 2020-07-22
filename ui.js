@@ -16,7 +16,6 @@ const tasks = {
 // as onlick (see below).
 window.onmessage = (e) => {
   const id = e.data.id;
-  tasks[id].pass = e.data.pass;
   switch (id) {
     case 'hero':
       if (e.data.code === 'no-hero') {
@@ -29,7 +28,13 @@ window.onmessage = (e) => {
     case 'images':
       tasks.images.details.push(e.data.details);
       break;
+    // In this case we just want to update the UI, we don't want to add
+    // the data to the tasks object.
+    case 'version':
+      update(e.data);
+      return;
   }
+  tasks[id].pass = e.data.pass;
   update(e.data);
 };
 

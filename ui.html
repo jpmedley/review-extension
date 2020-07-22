@@ -8,6 +8,21 @@
     <h1>web.dev content review extension</h1>
     <button id="copy">Copy tasks</button>
     <button id="close">Close</button>
+    <section id="version">
+      <h2>Extension version</h2>
+      <p>
+        Status: <span class="status">In progress</span>
+      </p>
+      <p class="pass">
+        You're using the latest version of this Extension.
+      </p>
+      <p class="fail">
+        A new version of this extension is available. Please <code>cd</code>
+        to the extension's source code directory in a terminal and run
+        <code>git checkout master; git fetch origin; git rebase origin/master;</code>
+        to update.
+      </p>
+    </section>
     <section id="hero">
       <h2>Hero image dimensions</h2>
       <p>
@@ -17,7 +32,7 @@
         pass
       </p>
       <p class="fail">
-        The hero image should be <code>3200px</code> wide and <code>920px</code> tall.
+        <a href="https://web.dev/handbook/markup-media/#hero">Resize the hero image</a>.
       </p>
     </section>
     <section id="tags">

@@ -15,7 +15,7 @@
       }
       const image = new Image();
       image.addEventListener('load', () => {
-        if ((image.width === 3200) && (image.height === 920)) {
+        if ((image.width === 3200) && (image.height === 960)) {
           postMessage({id: 'hero', pass: true});
         } else {
           postMessage({id: 'hero', pass: false, code: 'incorrect-dimensions',
@@ -28,7 +28,8 @@
 
     }
     function images() {
-      [].slice.call(document.querySelectorAll('.w-post-content img')).forEach(image => {
+      const images = [].slice.call(document.querySelectorAll('.w-post-content img'));
+      images.forEach((image, index) => {
         const node = new Image();
         node.addEventListener('load', () => {
           if (node.width >= 1600) {
@@ -39,6 +40,8 @@
               pass: false,
               details: filename,
             });
+          } else {
+            if (index === images.length - 1) postMessage({id: 'images', pass: true});
           }
         });
         node.src = image.src;
@@ -76,6 +79,7 @@
         task: 'Add relevant tags to the post: https://web.dev/handbook/tags',
       });
     }
+
     function psi() {
       // TODO(kaycebasques): Use multiple category=X params
       // PSI API is returning HTTP 400 (invalid request)
@@ -86,6 +90,18 @@
       //fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?${url}&${categories}&${key}`)
       //    .then(response => response.text())
       //    .then(text => console.log(text));
+    }
+    // TODO(kaycebasques): Move this because it's not a content audit.
+    // It's here right now because we don't want to run it until the Extension UI is ready.
+    function version() {
+      const url = 'https://raw.githubusercontent.com/kaycebasques/review-extension/master/manifest.json';
+      fetch(url).then(response => response.json()).then(json => {
+        if (json.version !== chrome.runtime.getManifest().version) {
+          postMessage({id: 'version', pass: false, code: 'new-version-available'});
+        } else {
+          postMessage({id: 'version', pass: true});
+        }
+      });
     }
     function videos() {
       // https://web.dev/handbook/markup-media/#video-hosted-on-web.dev
@@ -107,6 +123,7 @@
     tags();
     //headings();
     //psi();
+    version();
     videos();
   }
   function setup() {
