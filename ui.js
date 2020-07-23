@@ -10,6 +10,10 @@ const tasks = {
   tags: {
     description: 'Add relevant tags to the post: https://web.dev/handbook/tags',
   },
+  youtube: {
+    description: 'Use the YouTube shortcode to embed YouTube videos: https://web.dev/handbook/markup-media/#youtube',
+    details: [],
+  }
 };
 
 // Using onmessage rather than addEventListener for the same reason
