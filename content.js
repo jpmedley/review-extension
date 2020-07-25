@@ -30,6 +30,10 @@
     function images() {
       let pass = true;
       const images = [].slice.call(document.querySelectorAll('.w-post-content img'));
+      if (images.length === 0) {
+        postMessage({id: 'images', pass: true});
+        return;
+      }
       images.forEach((image, index) => {
         const node = new Image();
         node.addEventListener('load', () => {
@@ -125,6 +129,10 @@
       // Using `youtu` rather than `youtube` on the off-chance that someone uses
       // the YouTube short URL version, e.g. `https://youtu.be/GLUB2yzk0ZQ`.
       let videos = [].slice.call(document.querySelectorAll('iframe[src*="youtu"]'));
+      if (videos.length === 0) {
+        postMessage({id: 'youtube', pass: true});
+        return;
+      }
       videos.forEach((video, index) => {
         // There's more markup that we could check for, but this is probably good enough
         // because it ensures that the proper styling is being added and the iframe is
