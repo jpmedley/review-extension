@@ -2,7 +2,6 @@
   function postMessage(data) {
     const extension = document.querySelector('.w-extension');
     extension.contentWindow.postMessage(data, '*');
-    console.log(`posting message from content.js`, data);
   }
   function audit() {
     const ui = document.querySelector('.w-extension');
@@ -23,6 +22,16 @@
         }
       });
       image.src = document.querySelector('.w-hero').src;
+    }
+    function discoverable() {
+      fetch('/feed.xml').then(response => response.text()).then(text => {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'text/xml');
+        const links = [].slice.call(xml.getElementsByTagName('link'));
+        const blog = links.filter(link => link.attributes.href.value.includes(window.location.pathname)).length > 0;
+        const learn = document.querySelector('.w-post-signpost') ? true : false;
+        postMessage({id: 'discoverability', pass: (blog || learn)});
+      });
     }
     function headings() {
 
@@ -97,12 +106,14 @@
       //    .then(response => response.text())
       //    .then(text => console.log(text));
     }
+    function sectionLinks() {
+      const links = [].slice.call(document.querySelectorAll('.w-post-content a'));
+    }
     // TODO(kaycebasques): Move this because it's not a content audit.
     // It's here right now because we don't want to run it until the Extension UI is ready.
     function version() {
       const url = `https://raw.githubusercontent.com/kaycebasques/review-extension/master/manifest.json?timestamp=${Date.now()}`;
       fetch(url).then(response => response.json()).then(json => {
-        console.log('network', json.version, 'manifest', chrome.runtime.getManifest().version);
         if (json.version !== chrome.runtime.getManifest().version) {
           postMessage({id: 'version', pass: false, code: 'new-version-available'});
         } else {
@@ -122,7 +133,6 @@
         };
         data.push(details);
       });
-      console.log(data);
     }
     function youtube() {
       let pass = true;
@@ -151,12 +161,14 @@
         if (index === videos.length - 1 && pass) postMessage({id: 'youtube', pass: true});
       });
     }
+    discoverable();
     hero();
     images();
     //links();
     tags();
     //headings();
     //psi();
+    //sectionLinks();
     version();
     videos();
     youtube();

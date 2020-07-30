@@ -1,5 +1,8 @@
 const state = {};
 const tasks = {
+  discoverability: {
+    description: 'Make the page discoverable from either web.dev/blog (add the `blog` [tag](https://web.dev/handbook/tags#add-tags)) or a web.dev/learn collection (add it to one of the `src/site/_data/paths` JSON files).'
+  },
   hero: {
     description: undefined,
   },
