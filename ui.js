@@ -10,8 +10,11 @@ const tasks = {
     description: 'Resize the width of the following images to 1600px or less:',
     details: [],
   },
+  subhead: {
+    description: 'Add a subheading to the page: https://web.dev/handbook/yaml-front-matter/#subhead'
+  },
   tags: {
-    description: 'Add relevant tags to the post: https://web.dev/handbook/tags',
+    description: 'Add relevant tags to the post: https://web.dev/handbook/yaml-front-matter/#tags',
   },
   youtube: {
     description: 'Use the YouTube shortcode to embed YouTube videos: https://web.dev/handbook/markup-media/#youtube',

@@ -23,6 +23,9 @@
       });
       image.src = document.querySelector('.w-hero').src;
     }
+    function caniuse() {
+
+    }
     function discoverable() {
       fetch('/feed.xml').then(response => response.text()).then(text => {
         const parser = new DOMParser();
@@ -66,10 +69,6 @@
     function isBlog() {
       return document.querySelector('.w-breadcrumbs__link[href="/blog"]') ? true : false;
     }
-    // TODO(kaycebasques): Getting CORS errors. Need to use the Extension to create new tabs
-    // and check that the pages are valid that way.
-    // Extension background script might be the way to go.
-    // https://stackoverflow.com/a/5342473/1669860
     function links() {
       let links = [].slice.call(document.querySelectorAll('.w-post-content a'));
       // TODO(kayce): Refactor all of the filtering logic below to do less looping.
@@ -85,7 +84,7 @@
       links = links.filter(link => !RegExp('Improve article').test(link.textContent));
       links = links.map(link => link.href);
       // TODO(kaycebasques): Add a callback?
-      chrome.runtime.sendMessage(JSON.stringify({id: 'links', links}));
+      chrome.runtime.sendMessage(JSON.stringify({links}));
     }
     function tags() {
       postMessage({
@@ -108,6 +107,10 @@
     }
     function sectionLinks() {
       const links = [].slice.call(document.querySelectorAll('.w-post-content a'));
+    }
+    function subhead() {
+      postMessage({id: 'subhead', 
+          pass: (document.querySelector('.w-article-header__subhead') ? true : false)});
     }
     // TODO(kaycebasques): Move this because it's not a content audit.
     // It's here right now because we don't want to run it until the Extension UI is ready.
@@ -164,7 +167,8 @@
     discoverable();
     hero();
     images();
-    //links();
+    links();
+    subhead();
     tags();
     //headings();
     //psi();
@@ -192,6 +196,9 @@
         ui.src = chrome.runtime.getURL('ui.html');
         document.body.appendChild(ui);
       }
+      chrome.runtime.onMessage.addListener((request, sender) => {
+        console.log({request, sender});
+      });
     }
     customize();
     init();
@@ -204,6 +211,7 @@
       extension.parentNode.removeChild(extension);
     }
   }
+  // TODO(kaycebasques): Move this into setup()?
   window.onmessage = e => {
     if (e.data.id === 'close') teardown();
     if (e.data.id === 'ready') audit();

@@ -15,6 +15,7 @@
 
 ## TODO
 
+* caniuse should link to #feat not #search
 * Replace GIFs with videos (use the LIghthouse audit)
 * Videos have playsinline attribute (and all the other attributes)
 * YouTube videos are embedded with component
