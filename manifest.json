@@ -11,7 +11,8 @@
     "activeTab",
     "http://*/",
     "https://*/",
-    "tabs"
+    "tabs",
+    "webNavigation"
   ],
   "background": {
     "scripts": [
@@ -24,5 +25,5 @@
     "ui.html",
     "ui.js"
   ],
-  "content_security_policy": "object-src 'self'; script-src 'self' https://*.netlify.app/*;"
+  "content_security_policy": "object-src 'self'; script-src 'self' https://*.netlify.app/* https://web.dev/*;"
 }

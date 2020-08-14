@@ -10,6 +10,10 @@ const tasks = {
     description: 'Resize the width of the following images to 1600px or less:',
     details: [],
   },
+  // links: {
+  //   description: 'Fix the following broken links:',
+  //   details: [],
+  // },
   subhead: {
     description: 'Add a subheading to the page: https://web.dev/handbook/yaml-front-matter/#subhead'
   },

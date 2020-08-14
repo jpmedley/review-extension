@@ -69,9 +69,10 @@
     function isBlog() {
       return document.querySelector('.w-breadcrumbs__link[href="/blog"]') ? true : false;
     }
+    // TODO(kaycebasques): Filter out same-page section links.
     function links() {
       let links = [].slice.call(document.querySelectorAll('.w-post-content a'));
-      // TODO(kayce): Refactor all of the filtering logic below to do less looping.
+      // TODO(kaycebasques): Refactor all of the filtering logic below to do less looping.
       // Filter out known links that the site's template injects into each page.
       [
         'w-breadcrumbs__link',
@@ -84,7 +85,7 @@
       links = links.filter(link => !RegExp('Improve article').test(link.textContent));
       links = links.map(link => link.href);
       // TODO(kaycebasques): Add a callback?
-      chrome.runtime.sendMessage(JSON.stringify({links}));
+      chrome.runtime.sendMessage({id: 'links', data: links});
     }
     function tags() {
       postMessage({
@@ -111,6 +112,10 @@
     function subhead() {
       postMessage({id: 'subhead', 
           pass: (document.querySelector('.w-article-header__subhead') ? true : false)});
+    }
+    // Create a manual audit that checks that the title is similar to the URL
+    function title() {
+
     }
     // TODO(kaycebasques): Move this because it's not a content audit.
     // It's here right now because we don't want to run it until the Extension UI is ready.
@@ -167,7 +172,7 @@
     discoverable();
     hero();
     images();
-    links();
+    //links();
     subhead();
     tags();
     //headings();
