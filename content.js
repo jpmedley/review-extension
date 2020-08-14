@@ -26,6 +26,17 @@
     function caniuse() {
 
     }
+    function chromestatus() {
+      const links = [].slice.call(document.querySelectorAll('.w-post-content a'));
+      const chromestatus = links.filter(link => link.href.includes('chromestatus.com/features'));
+      if (chromestatus.length === 0) {
+        postMessage({id: 'chromestatus', pass: true});
+        return;
+      }
+      chromestatus.forEach(link => {
+        postMessage({id: 'chromestatus', pass: false, details: link.href});
+      });
+    }
     function discoverable() {
       fetch('/feed.xml').then(response => response.text()).then(text => {
         const parser = new DOMParser();
@@ -169,6 +180,7 @@
         if (index === videos.length - 1 && pass) postMessage({id: 'youtube', pass: true});
       });
     }
+    chromestatus();
     discoverable();
     hero();
     images();

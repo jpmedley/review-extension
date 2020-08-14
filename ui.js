@@ -1,5 +1,9 @@
 const state = {};
 const tasks = {
+  chromestatus: {
+    description: 'Fix the following `chromestatus.com` links by replacing `/features/` with `/feature/`:',
+    details: []
+  },
   discoverability: {
     description: 'Make the page discoverable from either web.dev/blog (add the `blog` [tag](https://web.dev/handbook/tags#add-tags)) or a web.dev/learn collection (add it to one of the `src/site/_data/paths` JSON files).'
   },
@@ -39,15 +43,13 @@ window.onmessage = (e) => {
         tasks.hero.description = 'Resize the hero image: https://web.dev/handbook/markup-media/#hero';
       }
       break;
-    case 'images':
-      tasks.images.details.push(e.data.details);
-      break;
     // In this case we just want to update the UI, we don't want to add
     // the data to the tasks object.
     case 'version':
       update(e.data);
       return;
   }
+  if (e.data.details) tasks[id].details.push(e.data.details);
   tasks[id].pass = e.data.pass;
   update(e.data);
 };
