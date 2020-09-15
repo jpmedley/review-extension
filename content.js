@@ -60,7 +60,7 @@
       images.forEach((image, index) => {
         const node = new Image();
         node.addEventListener('load', () => {
-          if (node.width >= 1600) {
+          if (node.width > 1600) {
             pass = false;
             const pathname = new URL(node.src).pathname;
             const filename = pathname.substring(pathname.lastIndexOf('/') + 1);
